@@ -7,7 +7,6 @@ import 'package:coursework/Constants/Loader/Loader.dart';
 import 'package:coursework/Constants/TextStyle/Textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../Constants/Colors/colors.dart';
 import '../../Constants/Texts/Validation.dart';
 
@@ -91,10 +90,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: screenHeight * 0.04,
                     ),
                     Container(
-                      height: screenHeight * 0.2,
-                      width: screenWidth,
-                      // child: Lottie.asset("assets/json/stackbook.json"),
-                    ),
+                        height: screenHeight * 0.2,
+                        width: screenWidth,
+                        child: Image(
+                            image: AssetImage("assets/images/signup.png"))),
                     signuptextform(namecontroller, "Name", Icons.person),
                     SizedBox(
                       height: screenHeight * 0.02,
@@ -150,20 +149,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                             ),
                           ),
-
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    //       registerUser(
-                    //           namecontroller.text,
-                    //           emailcontroller.text,
-                    //           passwordcontroller.text);
-                    //     },
-                    //     child: Text("Submit")),
-
-                    // button(
-                    //     "Register",
-                    //     registerUser(namecontroller.text,
-                    //         emailcontroller.text, passwordcontroller.text)),
                     SizedBox(
                       height: screenHeight * 0.03,
                     ),
@@ -240,7 +225,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         // User creation successful, now add the user's name to Firestore
         String userId = userCredential.user!.uid;
         await FirebaseFirestore.instance.collection('users').doc(userId).set(
-          {'name': name, 'email': email, 'voice': false, 'language': "English"},
+          {
+            'name': name,
+            'email': email,
+          },
         );
 
         Navigator.of(context).pushReplacement(

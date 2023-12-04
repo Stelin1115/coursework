@@ -27,26 +27,11 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showPassword = true;
   bool _isLoading = false;
   String? bodyError;
-  String? aivoice;
   var token;
 
   @override
   void initState() {
-    getItems();
     super.initState();
-  }
-
-  void getItems() async {
-    var test;
-    FirebaseFirestore.instance
-        .collection("voice")
-        .doc("user")
-        .get()
-        .then((DocumentSnapshot doc) {
-      var item = doc.data() as Map<String, dynamic>;
-      test = item['isEnable'];
-      print(test);
-    });
   }
 
   void obscurepsw() {
@@ -88,10 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: screenHeight * 0.05,
                     ),
                     Container(
-                      height: screenHeight * 0.28,
-                      width: screenWidth,
-                      // child: Lottie.asset('assets/json/book.json'),
-                    ),
+                        height: screenHeight * 0.28,
+                        width: screenWidth,
+                        child: Image(
+                            image: AssetImage("assets/images/login.png"))),
                     SizedBox(height: screenHeight * 0.04),
                     logintextform(loginemailcontroller),
                     SizedBox(
@@ -280,13 +265,11 @@ class _LoginScreenState extends State<LoginScreen> {
               .set({
             'email': user.email,
             'name': user.displayName,
-            "voice": false,
-            "language": "English"
           });
 
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => BottomNavigationScreen(
-                    pageno: 2,
+                    pageno: 0,
                   )));
         }
       }
