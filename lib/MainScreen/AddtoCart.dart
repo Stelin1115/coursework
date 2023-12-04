@@ -17,6 +17,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: primaryBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -54,11 +55,11 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                                 side: BorderSide(
-                                  color: HexColor("#F3EBFC"),
+                                  color: HexColor("#e6ffe6"),
                                   width: 2.0,
                                 ),
                               ),
-                              color: HexColor("#F3EBFC"),
+                              color: HexColor("#f2fcf8"),
                               elevation: 5.0,
                               child: SizedBox(
                                 height: 100.0,

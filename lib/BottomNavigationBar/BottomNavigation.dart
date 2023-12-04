@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:coursework/MainScreen/HomeScreen.dart';
+import 'package:coursework/MainScreen/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -40,6 +41,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final List<Widget> _screens = [
     HomeScreen(),
     AddToCartScreen(),
+    ProfileScreen()
   ];
 
   @override
@@ -49,19 +51,24 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       body: _screens[_currentIndex],
       bottomNavigationBar: SalomonBottomBar(
         curve: Curves.linear,
-        backgroundColor: HexColor("#FCEFFF"),
+        backgroundColor: HexColor("#e6ffe6"),
         currentIndex: _currentIndex,
         onTap: (i) => setState(() => _currentIndex = i),
         items: [
           SalomonBottomBarItem(
             icon: Icon(Icons.class_),
             title: Text("Classes"),
-            selectedColor: Colors.purple.shade700,
+            selectedColor: Colors.greenAccent.shade700,
           ),
           SalomonBottomBarItem(
             icon: Icon(Icons.cabin),
             title: Text("Card"),
-            selectedColor: Colors.purple.shade700,
+            selectedColor: Colors.greenAccent.shade700,
+          ),
+          SalomonBottomBarItem(
+            icon: Icon(Icons.person),
+            title: Text("profile"),
+            selectedColor: Colors.greenAccent.shade700,
           ),
         ],
       ),

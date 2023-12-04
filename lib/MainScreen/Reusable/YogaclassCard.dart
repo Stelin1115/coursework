@@ -21,9 +21,9 @@ class YogaClassCard extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
-        side: BorderSide(color: HexColor("#F3EBFC"), width: 2.0),
+        side: BorderSide(color: HexColor("#e6ffe6"), width: 2.0),
       ),
-      color: HexColor("#F3EBFC"),
+      color: HexColor("#f2fcf8"),
       elevation: 5.0,
       child: SizedBox(
         height: 100.0,

@@ -12,7 +12,7 @@ class HexColor extends Color {
   }
 }
 
-HexColor primaryBackgroundColor = HexColor("#F4EEFA");
+HexColor primaryBackgroundColor = HexColor("#f0fcf0");
 HexColor primarygreencolor = HexColor("#14FF85");
 HexColor textfieldinnercolor = HexColor("#F5F4F8");
 HexColor textfieldtextcolor = HexColor("#A1A5C1");
