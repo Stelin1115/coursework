@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //   // Add more classes as needed
   // ];
 
-  // List<Map<String, String>> displayedClasses = [];
+  List<Map<String, String>> displayedClasses = [];
 
   bool isLoading = true;
   var classbody;
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
       };
       var box = await CallApi().postData(data, 'GetInstances');
       classbody = json.decode(box.body);
-      // displayedClasses = List.from(classbody);
+      displayedClasses = List.from(classbody);
 
       print('OOOOOOOKKKKKKKKAAAAAAAAYYYYYYYYYY');
 
@@ -101,15 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void filterClasses(String query) {
     setState(() {
-      // displayedClasses = classes
-      //     .where((classInfo) =>
-      //         classInfo['teacher']!
-      //             .toLowerCase()
-      //             .contains(query.toLowerCase()) ||
-      //         classInfo['classTime']!
-      //             .toLowerCase()
-      //             .contains(query.toLowerCase()))
-      // .toList();
+      displayedClasses = classbody
+          .where((classInfo) =>
+              classInfo['teacher']!
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              classInfo['classTime']!
+                  .toLowerCase()
+                  .contains(query.toLowerCase()))
+      .toList();
     });
   }
 
