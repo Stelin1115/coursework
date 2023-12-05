@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
               classInfo['classTime']!
                   .toLowerCase()
                   .contains(query.toLowerCase()))
-      .toList();
+          .toList();
     });
   }
 
@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: TextField(
-                  // onChanged: filterClasses,
+                  onChanged: filterClasses,
                   decoration: InputDecoration(
                     labelText: 'Search classes',
                     prefixIcon: Icon(Icons.search),
