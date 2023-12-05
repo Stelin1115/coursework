@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:coursework/MainScreen/Reusable/SharedPreferences.dart';
 import 'package:coursework/MainScreen/Reusable/YogaclassCard.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -22,49 +23,49 @@ class _HomeScreenState extends State<HomeScreen> {
       ItemPositionsListener.create();
   final ItemScrollController itemScrollController = ItemScrollController();
 
-  List<Map<String, String>> classes = [
-    {
-      'teacher': 'Rosselll',
-      'classDay': "Wednesday",
-      'date': '12/12/2023',
-      'classTime': '12:00'
-    },
-    {
-      'teacher': 'Rosselll',
-      'classDay': "Wednesday",
-      'date': '12/12/2023',
-      'classTime': '13:00'
-    },
-    {
-      'teacher': 'Rosselll',
-      'classDay': "Wednesday",
-      'date': '12/12/2023',
-      'classTime': '14:00'
-    },
-    {
-      'teacher': 'Rosselll',
-      'classDay': "Wednesday",
-      'date': '12/12/2023',
-      'classTime': '15:00'
-    },
-    {
-      'teacher': 'Rosselll',
-      'classDay': "Wednesday",
-      'date': '12/12/2023',
-      'classTime': '16:00'
-    },
-    {
-      'teacher': 'Rosselll',
-      'classDay': "Wednesday",
-      'date': '12/12/2023',
-      'classTime': '17:00'
-    },
-    // Add more classes as needed
-  ];
+  // List<Map<String, String>> classes = [
+  //   {
+  //     'teacher': 'Rosselll',
+  //     'classDay': "Wednesday",
+  //     'date': '12/12/2023',
+  //     'classTime': '12:00'
+  //   },
+  //   {
+  //     'teacher': 'Rosselll',
+  //     'classDay': "Wednesday",
+  //     'date': '12/12/2023',
+  //     'classTime': '13:00'
+  //   },
+  //   {
+  //     'teacher': 'Rosselll',
+  //     'classDay': "Wednesday",
+  //     'date': '12/12/2023',
+  //     'classTime': '14:00'
+  //   },
+  //   {
+  //     'teacher': 'Rosselll',
+  //     'classDay': "Wednesday",
+  //     'date': '12/12/2023',
+  //     'classTime': '15:00'
+  //   },
+  //   {
+  //     'teacher': 'Rosselll',
+  //     'classDay': "Wednesday",
+  //     'date': '12/12/2023',
+  //     'classTime': '16:00'
+  //   },
+  //   {
+  //     'teacher': 'Rosselll',
+  //     'classDay': "Wednesday",
+  //     'date': '12/12/2023',
+  //     'classTime': '17:00'
+  //   },
+  //   // Add more classes as needed
+  // ];
 
-  List<Map<String, String>> displayedClasses = [];
+  // List<Map<String, String>> displayedClasses = [];
 
-  bool isLoading = false;
+  bool isLoading = true;
   var classbody;
 
   void getClasses() async {
@@ -74,11 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
     try {
       var data = {
-        "userId": 'usernameController.text',
+        "userId": 'Sm0740r',
       };
       var box = await CallApi().postData(data, 'GetInstances');
       classbody = json.decode(box.body);
-      displayedClasses = List.from(classbody);
+      // displayedClasses = List.from(classbody);
 
       print('OOOOOOOKKKKKKKKAAAAAAAAYYYYYYYYYY');
 
@@ -95,20 +96,20 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getClasses();
-    displayedClasses = List.from(classes);
+    // displayedClasses = List.from(classes);
   }
 
   void filterClasses(String query) {
     setState(() {
-      displayedClasses = classes
-          .where((classInfo) =>
-              classInfo['teacher']!
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
-              classInfo['classTime']!
-                  .toLowerCase()
-                  .contains(query.toLowerCase()))
-          .toList();
+      // displayedClasses = classes
+      //     .where((classInfo) =>
+      //         classInfo['teacher']!
+      //             .toLowerCase()
+      //             .contains(query.toLowerCase()) ||
+      //         classInfo['classTime']!
+      //             .toLowerCase()
+      //             .contains(query.toLowerCase()))
+      // .toList();
     });
   }
 
@@ -128,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: TextField(
-                  onChanged: filterClasses,
+                  // onChanged: filterClasses,
                   decoration: InputDecoration(
                     labelText: 'Search classes',
                     prefixIcon: Icon(Icons.search),
@@ -139,44 +140,47 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: screenHeight * 0.75,
-                child: ScrollablePositionedList.separated(
-                  itemScrollController: itemScrollController,
-                  itemPositionsListener: itemPositionsListener,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        print('object');
-                      },
-                      child: YogaClassCard(
-                        teacher: displayedClasses[index]['teacher'].toString(),
-                        classDay:
-                            displayedClasses[index]['classDay'].toString(),
-                        date: displayedClasses[index]['date'].toString(),
-                        classTime:
-                            displayedClasses[index]['classTime'].toString(),
-                        function: () {
-                          print(
-                              displayedClasses[index]['classTime'].toString());
-                          _addToCart(
-                              // classbody[index]['instanceId'],
-                              displayedClasses[index]['teacher'].toString()!,
-                              displayedClasses[index]['classDay'].toString()!,
-                              displayedClasses[index]['date'].toString()!,
-                              displayedClasses[index]['classTime'].toString()!);
+              isLoading
+                  ? SizedBox(
+                      height: screenHeight * 0.75,
+                      child: Center(child: CupertinoActivityIndicator()),
+                    )
+                  : SizedBox(
+                      height: screenHeight * 0.75,
+                      child: ScrollablePositionedList.separated(
+                        itemScrollController: itemScrollController,
+                        itemPositionsListener: itemPositionsListener,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              print('object');
+                            },
+                            child: YogaClassCard(
+                              teacher: classbody[index]['teacher'].toString(),
+                              classDay: classbody[index]['classDay'].toString(),
+                              date: classbody[index]['date'].toString(),
+                              classTime:
+                                  classbody[index]['classTime'].toString(),
+                              function: () {
+                                print(classbody[index]['classTime'].toString());
+                                postBooking(
+                                    classbody[index]['instanceId'],
+                                    classbody[index]['teacher'].toString()!,
+                                    classbody[index]['classDay'].toString()!,
+                                    classbody[index]['date'].toString()!,
+                                    classbody[index]['classTime'].toString()!);
+                              },
+                            ),
+                          );
                         },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(
+                            height: 15,
+                          );
+                        },
+                        itemCount: classbody.length,
                       ),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: 15,
-                    );
-                  },
-                  itemCount: displayedClasses.length,
-                ),
-              ),
+                    ),
             ],
           ),
         ),
@@ -193,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     try {
       var data = {
-        "userId": "wm456",
+        "userId": "Sm0740r",
         "bookingList": [
           {"instanceId": instanceId}
         ]
