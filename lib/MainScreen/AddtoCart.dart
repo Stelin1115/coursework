@@ -68,14 +68,32 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     leading: CircleAvatar(
                                       radius: 30.0,
                                       backgroundImage: NetworkImage(
-                                        classDetails['imageURL'] ?? '',
-                                      ),
+                                          // classDetails['imageURL'] ?? '',
+                                          ' https://picsum.photos/200/300'),
                                     ),
-                                    title:
-                                        Text(classDetails['className'] ?? ''),
-                                    subtitle: Text(
-                                      'Time: ${classDetails['classTime'] ?? ''}',
-                                    ),
+                                    title: Text(classDetails['teacher'] ?? ''),
+                                    subtitle: Container(
+                                        height: 40,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              classDetails['classDay'] ?? '',
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${classDetails['date'] ?? ''} ',
+                                                ),
+                                                Text(
+                                                  classDetails['classTime'] ??
+                                                      '',
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        )),
                                     trailing: IconButton(
                                       icon: const Icon(Icons.remove),
                                       onPressed: () {

@@ -77,8 +77,17 @@ class _HomeScreenState extends State<HomeScreen> {
       var data = {
         "userId": 'Sm0740r',
       };
+      print('object');
+      print(classbody);
+
+      print('0');
+
       var box = await CallApi().postData(data, 'GetInstances');
+      print('1');
+
       classbody = json.decode(box.body);
+      print('2');
+
       displayedClasses = List.from(classbody);
 
       print('OOOOOOOKKKKKKKKAAAAAAAAYYYYYYYYYY');
@@ -86,10 +95,14 @@ class _HomeScreenState extends State<HomeScreen> {
       print(classbody);
 
       print('OOOOOOOKKKKKKKKAAAAAAAAYYYYYYYYYY');
-    } catch (e) {}
-    setState(() {
-      isLoading = false;
-    });
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -145,42 +158,53 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: screenHeight * 0.75,
                       child: Center(child: CupertinoActivityIndicator()),
                     )
-                  : SizedBox(
-                      height: screenHeight * 0.75,
-                      child: ScrollablePositionedList.separated(
-                        itemScrollController: itemScrollController,
-                        itemPositionsListener: itemPositionsListener,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              print('object');
+                  : classbody == null
+                      ? SizedBox(
+                          height: screenHeight * 0.75,
+                          child: Center(child: Text('No classes available')),
+                        )
+                      : SizedBox(
+                          height: screenHeight * 0.75,
+                          child: ScrollablePositionedList.separated(
+                            itemScrollController: itemScrollController,
+                            itemPositionsListener: itemPositionsListener,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  print('object');
+                                },
+                                child: YogaClassCard(
+                                  teacher:
+                                      classbody[index]['teacher'].toString(),
+                                  classDay:
+                                      classbody[index]['classDay'].toString(),
+                                  date: classbody[index]['date'].toString(),
+                                  classTime:
+                                      classbody[index]['classTime'].toString(),
+                                  function: () {
+                                    print(classbody[index]['classTime']
+                                        .toString());
+                                    postBooking(
+                                        classbody[index]['instanceId'],
+                                        classbody[index]['teacher'].toString()!,
+                                        classbody[index]['classDay']
+                                            .toString()!,
+                                        classbody[index]['date'].toString()!,
+                                        classbody[index]['classTime']
+                                            .toString()!);
+                                  },
+                                ),
+                              );
                             },
-                            child: YogaClassCard(
-                              teacher: classbody[index]['teacher'].toString(),
-                              classDay: classbody[index]['classDay'].toString(),
-                              date: classbody[index]['date'].toString(),
-                              classTime:
-                                  classbody[index]['classTime'].toString(),
-                              function: () {
-                                print(classbody[index]['classTime'].toString());
-                                postBooking(
-                                    classbody[index]['instanceId'],
-                                    classbody[index]['teacher'].toString()!,
-                                    classbody[index]['classDay'].toString()!,
-                                    classbody[index]['date'].toString()!,
-                                    classbody[index]['classTime'].toString()!);
-                              },
-                            ),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(
-                            height: 15,
-                          );
-                        },
-                        itemCount: classbody.length,
-                      ),
-                    ),
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(
+                                height: 15,
+                              );
+                            },
+                            itemCount: classbody == null ? 0 : classbody.length,
+                          ),
+                        ),
             ],
           ),
         ),
